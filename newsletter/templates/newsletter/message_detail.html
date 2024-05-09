@@ -1,0 +1,17 @@
+{% extends 'newsletter/base.html' %}
+
+{% block title %} Информация о сообщении {% endblock %}
+
+{% block content %}
+    <div class="col-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p class="card-text">Тема письма: {{ object.subject }} </p>
+                <p class="card-text">Содержание: {{ object.text }} </p>
+                <a href="{% url 'newsletter:message_update' object.pk %}" class="w-100 btn btn-lg btn-outline-info">Редактировать</a>
+                <a href="{% url 'newsletter:message_list' %}" class="w-100 btn btn-lg btn-outline-primary">Выход</a>
+                <a href="{% url 'newsletter:message_delete' object.pk %}" class="w-100 btn btn-lg btn-outline-danger">Удалить</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}

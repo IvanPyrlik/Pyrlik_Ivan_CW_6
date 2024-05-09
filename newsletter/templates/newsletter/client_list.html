@@ -1,0 +1,19 @@
+{% extends 'newsletter/base.html' %}
+{% block title %} Наши клиенты {% endblock %}
+{% block content %}
+<a class="btn btn-outline-success" href="{% url 'newsletter:client_create' %}"> Добавление клиента </a>
+
+{% for object in object_list %}
+<div class="col">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <p class="card-text">ФИО: {{ object.full_name }} </p>
+            <p class="card-text">Почта: {{ object.email }} </p>
+            <p class="card-text">Комментарий: {{ object.comment }}</p>
+            <p class="card-text">Владелец: {{ object.owner|default:'Нет владельца' }} </p>
+            <a href="{% url 'newsletter:client_detail' object.pk %}">Информация о клиенте</a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+{% endblock %}

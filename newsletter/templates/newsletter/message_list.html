@@ -1,0 +1,18 @@
+{% extends 'newsletter/base.html' %}
+{% block title %} Ваши сообщения {% endblock %}
+{% block content %}
+    <a class="btn btn-outline-success" href="{% url 'newsletter:message_create' %}">Добавление сообщения</a>
+
+    {% for object in object_list %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">Тема письма: {{ object.subject }} </p>
+                    <p class="card-text">Содержание: {{ object.text }} </p>
+                    <p class="card-text">Владелец: {{ object.owner|default:'Нет владельца' }} </p>
+                    <a href="{% url 'newsletter:message_detail' object.pk %}">Информация о сообщении</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'newsletter/base.html' %}
+{% block title %} Ваши рассылки {% endblock %}
+{% block content %}
+    <a class="btn btn-outline-success" href="{% url 'newsletter:newsletter_create' %}">Добавление рассылки</a>
+
+    {% for object in object_list %}
+        <div class="col">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <p class="card-text">Дата и время начала: {{ object.start_date }} </p>
+                    <p class="card-text">Дата и время окончания: {{ object.end_date }} </p>
+                    <p class="card-text">Периодичность: {{ object.period }} </p>
+                    <p class="card-text">Статус: {{ object.status }} </p>
+                    <p class="card-text">Сообщение: {{ object.message }} </p>
+                    <p class="card-text">Владелец: {{ object.owner|default:'Нет владельца' }} </p>
+                    <a href="{% url 'newsletter:newsletter_detail' object.pk %}">Информация о рассылке</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

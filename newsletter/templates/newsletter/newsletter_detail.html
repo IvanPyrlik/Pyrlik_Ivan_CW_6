@@ -1,0 +1,20 @@
+{% extends 'newsletter/base.html' %}
+
+{% block title %} Ваши рассылки {% endblock %}
+
+{% block content %}
+    <div class="col-6">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <p class="card-text">Дата и время начала: {{ object.start_date }} </p>
+                <p class="card-text">Дата и время окончания: {{ object.end_date }} </p>
+                <p class="card-text">Периодичность: {{ object.period }} </p>
+                <p class="card-text">Статус: {{ object.status }} </p>
+                <p class="card-text">Сообщение: {{ object.message }} </p>
+                <a href="{% url 'newsletter:newsletter_update' object.pk %}" class="w-100 btn btn-lg btn-outline-info">Редактировать</a>
+                <a href="{% url 'newsletter:newsletter_list' %}" class="w-100 btn btn-lg btn-outline-primary">Выход</a>
+                <a href="{% url 'newsletter:newsletter_delete' object.pk %}" class="w-100 btn btn-lg btn-outline-success">Удалить</a>
+            </div>
+        </div>
+    </div>
+{% endblock %}
