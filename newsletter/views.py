@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, CreateView, DetailView, UpdateView, DeleteView
 
+from blog.models import Blog
 from newsletter.forms import ClientForm, MessageForm, NewsletterForm, NewsletterModeratorForm
 from newsletter.models import Client, Newsletter, Message
 
@@ -26,7 +27,7 @@ class HomeListView(ListView):
         return context_data
 
 
-class ClientListView(ListView):
+class ClientListView(LoginRequiredMixin, ListView):
 
     model = Client
     template_name = 'newsletter/client_list.html'
@@ -95,7 +96,7 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
         return self.object
 
 
-class MessageListView(ListView):
+class MessageListView(LoginRequiredMixin, ListView):
 
     model = Message
     form_class = MessageForm
@@ -122,7 +123,7 @@ class MessageCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class MessageDetailView(DetailView):
+class MessageDetailView(LoginRequiredMixin, DetailView):
 
     model = Message
 
@@ -161,7 +162,7 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
         return self.object
 
 
-class NewsletterListView(ListView):
+class NewsletterListView(LoginRequiredMixin,ListView):
 
     model = Newsletter
     template_name = 'newsletter/newsletter_list.html'
@@ -187,7 +188,7 @@ class NewsletterCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class NewsletterDetailView(DetailView):
+class NewsletterDetailView(LoginRequiredMixin, DetailView):
 
     model = Newsletter
     form_class = NewsletterForm
