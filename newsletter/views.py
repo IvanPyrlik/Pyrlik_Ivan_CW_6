@@ -27,13 +27,13 @@ class HomeListView(ListView):
         return context_data
 
 
-class ClientListView(LoginRequiredMixin, ListView):
+class ClientListView(ListView):
 
     model = Client
     template_name = 'newsletter/client_list.html'
 
 
-class ClientCreateView(LoginRequiredMixin, CreateView):
+class ClientCreateView(CreateView):
 
     model = Client
     form_class = ClientForm
@@ -96,14 +96,14 @@ class ClientDeleteView(LoginRequiredMixin, DeleteView):
         return self.object
 
 
-class MessageListView(LoginRequiredMixin, ListView):
+class MessageListView(ListView):
 
     model = Message
     form_class = MessageForm
     template_name = 'newsletter/message_list.html'
 
 
-class MessageCreateView(LoginRequiredMixin, CreateView):
+class MessageCreateView(CreateView):
 
     model = Message
     form_class = MessageForm
@@ -162,13 +162,13 @@ class MessageDeleteView(LoginRequiredMixin, DeleteView):
         return self.object
 
 
-class NewsletterListView(LoginRequiredMixin,ListView):
+class NewsletterListView(ListView):
 
     model = Newsletter
     template_name = 'newsletter/newsletter_list.html'
 
 
-class NewsletterCreateView(LoginRequiredMixin, CreateView):
+class NewsletterCreateView(CreateView):
 
     model = Newsletter
     form_class = NewsletterForm
