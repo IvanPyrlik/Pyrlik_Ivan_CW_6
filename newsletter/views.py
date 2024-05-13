@@ -32,6 +32,12 @@ class ClientListView(ListView):
     model = Client
     template_name = 'newsletter/client_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
 
 class ClientCreateView(CreateView):
 
@@ -65,6 +71,12 @@ class ClientDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Информация о клиенте'
         return context
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user and not self.request.user.is_staff:
+            raise Http404("Вы не являетесь владельцем!")
+        return self.object
 
 
 class ClientUpdateView(LoginRequiredMixin, UpdateView):
@@ -102,6 +114,12 @@ class MessageListView(ListView):
     form_class = MessageForm
     template_name = 'newsletter/message_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
 
 class MessageCreateView(CreateView):
 
@@ -131,6 +149,12 @@ class MessageDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Информация о письме'
         return context
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user and not self.request.user.is_staff:
+            raise Http404("Вы не являетесь владельцем!")
+        return self.object
 
 
 class MessageUpdateView(LoginRequiredMixin, UpdateView):
@@ -167,6 +191,12 @@ class NewsletterListView(ListView):
     model = Newsletter
     template_name = 'newsletter/newsletter_list.html'
 
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        if not self.request.user.is_staff:
+            queryset = queryset.filter(owner=self.request.user)
+        return queryset
+
 
 class NewsletterCreateView(CreateView):
 
@@ -198,6 +228,12 @@ class NewsletterDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         context['title'] = 'Информация о рассылках'
         return context
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        if self.object.owner != self.request.user and not self.request.user.is_staff:
+            raise Http404("Вы не являетесь владельцем!")
+        return self.object
 
 
 class NewsletterUpdateView(LoginRequiredMixin, UpdateView):
